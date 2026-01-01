@@ -21,6 +21,10 @@ class RegisterController extends Controller
         sleep(2);
         $user = $this->userService->register($request->validated());
         Auth::login($user);
-        return to_route('home');
+
+        return to_route('home')->with('toast', [
+            'type' => 'success',
+            'message' => 'User created successfully',
+        ]);
     }
 }

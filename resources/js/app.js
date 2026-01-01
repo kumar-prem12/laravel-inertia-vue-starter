@@ -7,6 +7,9 @@ import { ZiggyVue } from "../../vendor/tightenco/ziggy";
 
 import Main from "./Layouts/Main.vue";
 
+import ToastPlugin from '@erag/vue-toastification';
+import '@erag/vue-toastification/dist/style.css';
+
 createInertiaApp({
     title: (title) => `My App ${title}`,
     resolve: (name) => {
@@ -19,6 +22,7 @@ createInertiaApp({
         createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue)
+            .use(ToastPlugin)
             .component("Head", Head)
             .component("Link", Link)
             .mount(el);

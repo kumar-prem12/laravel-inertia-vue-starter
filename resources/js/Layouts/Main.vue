@@ -1,11 +1,38 @@
 <script setup>
+import { useToast, useModal } from '@erag/vue-toastification';
 import { useDarkMode } from '../theme'
 import NavLink from '../Components/NavLink.vue';
+import { computed , watch} from 'vue'
+import { usePage, router } from '@inertiajs/vue3'
 const { isDark, toggle } = useDarkMode()
-import { computed } from 'vue'
-import { usePage } from '@inertiajs/vue3'
 const page = usePage()
 const user = computed(() => page.props.auth.user)
+const toast = useToast();
+const modal = useModal();
+
+watch(
+  () => page.props.flash.toast,
+  newFlash => {
+    if (newFlash?.type) {
+      toast[newFlash?.type](newFlash?.message, '', 4000 , 'top-right');
+    }
+  },
+  { deep: true }
+);
+
+const logout = async () => {
+    const confirm = await modal.confirm({
+        title: 'Logout',
+        message: 'Do you really want to logout?',
+        confirmText: 'Logout',
+        type: 'danger'
+    });
+
+    if (confirm) {
+        router.post(route('logout'))
+    }
+};
+
 
 </script>
 
@@ -31,9 +58,9 @@ const user = computed(() => page.props.auth.user)
 
                 <!-- Auth user -->
                 <template v-else>
-                    <NavLink routeName="logout" method="post" as="button">
+                    <button @click="logout">
                         Logout
-                    </NavLink>
+                    </button>
                 </template>
 
                 <!-- Dark mode toggle -->
