@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use Inertia\Inertia;
 use App\Services\UserService;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -17,7 +18,9 @@ class RegisterController extends Controller
     }
     public function store(UserRequest $request)
     {
-        $this->userService->register($request->validated());
-        return to_route('register');
+        sleep(2);
+        $user = $this->userService->register($request->validated());
+        Auth::login($user);
+        return to_route('home');
     }
 }

@@ -1,11 +1,12 @@
 <script setup>
 import { useForm, Link } from '@inertiajs/vue3'
+import TextInput from '../../Components/TextInput.vue';
 
 const form = useForm({
-  name: '',
-  email: '',
-  password: '',
-  password_confirmation: '',
+  name: null,
+  email: null,
+  password: null,
+  password_confirmation: null,
 })
 
 const submit = () => {
@@ -14,16 +15,12 @@ const submit = () => {
 </script>
 
 <template>
-  <div
-    class="min-h-screen flex items-center justify-center
-           bg-slate-100 dark:bg-slate-900 px-4"
-  >
-    <div
-      class="w-full max-w-md bg-white dark:bg-slate-800
-             rounded-2xl shadow-lg p-8"
-    >
+  <div class="flex items-center justify-center
+           bg-slate-100 dark:bg-slate-900 px-4">
+    <div class="w-full max-w-md bg-white dark:bg-slate-800
+             rounded-2xl shadow-lg p-8">
       <!-- Header -->
-      <div class="text-center mb-6">
+      <div class="text-center mb-2">
         <h1 class="text-2xl font-bold text-slate-800 dark:text-white">
           Create Account
         </h1>
@@ -35,67 +32,15 @@ const submit = () => {
       <!-- Form -->
       <form @submit.prevent="submit" class="space-y-5">
 
-        <!-- Name -->
-        <div>
-          <label class="form-label">Name</label>
-          <input
-            v-model="form.name"
-            type="text"
-            placeholder="John Doe"
-            class="form-input"
-          />
-          <p v-if="form.errors.name" class="form-error">
-            {{ form.errors.name }}
-          </p>
-        </div>
-
-        <!-- Email -->
-        <div>
-          <label class="form-label">Email</label>
-          <input
-            v-model="form.email"
-            type="email"
-            placeholder="email@example.com"
-            class="form-input"
-          />
-          <p v-if="form.errors.email" class="form-error">
-            {{ form.errors.email }}
-          </p>
-        </div>
-
-        <!-- Password -->
-        <div>
-          <label class="form-label">Password</label>
-          <input
-            v-model="form.password"
-            type="password"
-            placeholder="********"
-            class="form-input"
-          />
-          <p v-if="form.errors.password" class="form-error">
-            {{ form.errors.password }}
-          </p>
-        </div>
-
-        <!-- Confirm Password -->
-        <div>
-          <label class="form-label">Confirm Password</label>
-          <input
-            v-model="form.password_confirmation"
-            type="password"
-            placeholder="********"
-            class="form-input"
-          />
-        </div>
-
+        <TextInput label="Name" v-model="form.name" :error="form.errors.name" />
+        <TextInput label="Email" type="email" v-model="form.email" :error="form.errors.email" />
+        <TextInput label="Password" type="password" v-model="form.password" :error="form.errors.password" />
+        <TextInput label="Confirm Password" type="password" v-model="form.password_confirmation" />
         <!-- Submit -->
-        <button
-          class="w-full py-2 rounded-lg font-semibold
+        <button class="w-full py-2 rounded-lg font-semibold
                  bg-indigo-600 hover:bg-indigo-700
                  text-white transition
-                 disabled:opacity-60"
-          :disabled="form.processing"
-        >
+                 disabled:opacity-60" :disabled="form.processing">
           {{ form.processing ? 'Creating account...' : 'Register' }}
         </button>
       </form>
@@ -103,10 +48,7 @@ const submit = () => {
       <!-- Footer -->
       <p class="text-center text-sm text-slate-500 mt-6">
         Already have an account?
-        <Link
-          :href="route('register')"
-          class="text-indigo-600 hover:underline font-medium"
-        >
+        <Link :href="route('login')" class="text-indigo-600 hover:underline font-medium">
           Login
         </Link>
       </p>
