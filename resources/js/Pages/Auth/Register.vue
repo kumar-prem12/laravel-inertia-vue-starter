@@ -1,6 +1,7 @@
 <script setup>
 import { useForm, Link } from '@inertiajs/vue3'
 import TextInput from '../../Components/TextInput.vue';
+import PrimaryButton from '../../Components/PrimaryButton.vue';
 
 const form = useForm({
   name: null,
@@ -15,6 +16,7 @@ const submit = () => {
 </script>
 
 <template>
+  <Head title="- Register"></Head>
   <div class="flex items-center justify-center
            bg-slate-100 dark:bg-slate-900 px-4">
     <div class="w-full max-w-md bg-white dark:bg-slate-800
@@ -37,12 +39,11 @@ const submit = () => {
         <TextInput label="Password" type="password" v-model="form.password" :error="form.errors.password" />
         <TextInput label="Confirm Password" type="password" v-model="form.password_confirmation" />
         <!-- Submit -->
-        <button class="w-full py-2 rounded-lg font-semibold
-                 bg-indigo-600 hover:bg-indigo-700
-                 text-white transition
-                 disabled:opacity-60" :disabled="form.processing">
+      
+        <PrimaryButton :loading="form.processing">
           {{ form.processing ? 'Creating account...' : 'Register' }}
-        </button>
+        </PrimaryButton>
+
       </form>
 
       <!-- Footer -->

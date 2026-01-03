@@ -1,6 +1,7 @@
 <script setup>
 import { useForm, Link } from '@inertiajs/vue3'
 import TextInput from '../../Components/TextInput.vue';
+import PrimaryButton from '../../Components/PrimaryButton.vue';
 
 const form = useForm({
     email: null,
@@ -17,6 +18,7 @@ const login = () => {
 </script>
 
 <template>
+    <Head title="- Login"></Head>
     <div class="flex items-center justify-center
            bg-slate-100 dark:bg-slate-900 px-4">
         <div class="w-full max-w-md bg-white dark:bg-slate-800
@@ -44,12 +46,9 @@ const login = () => {
                 </div>
 
                 <!-- Submit -->
-                <button class="w-full py-2 rounded-lg font-semibold
-                 bg-indigo-600 hover:bg-indigo-700
-                 text-white transition
-                 disabled:opacity-60" :disabled="form.processing">
+                <PrimaryButton :loading="form.processing">
                     Login
-                </button>
+                </PrimaryButton>
             </form>
 
             <!-- Footer -->

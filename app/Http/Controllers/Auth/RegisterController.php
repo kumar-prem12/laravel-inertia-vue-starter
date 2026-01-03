@@ -7,6 +7,7 @@ use App\Http\Requests\UserRequest;
 use Inertia\Inertia;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -18,8 +19,8 @@ class RegisterController extends Controller
     }
     public function store(UserRequest $request)
     {
-        sleep(2);
         $user = $this->userService->register($request->validated());
+        event(new Registered($user));
         Auth::login($user);
 
         return to_route('home')->with('toast', [
