@@ -61,6 +61,12 @@ const logout = async () => {
                     <button @click="logout">
                         Logout
                     </button>
+                    <NavLink routeName="profile.edit" componentName="Profile/Edit">
+                        Profile
+                    </NavLink>
+                    <NavLink routeName="dashboard" componentName="Dashboard">
+                        Dashboard
+                    </NavLink>
                 </template>
 
                 <!-- Dark mode toggle -->

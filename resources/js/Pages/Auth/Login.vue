@@ -43,6 +43,9 @@ const login = () => {
                             class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" />
                         Remember me
                     </label>
+                    <Link :href="route('password.request')" class="text-indigo-600 hover:underline font-medium">
+                        Forget Password?
+                    </Link>
                 </div>
 
                 <!-- Submit -->
