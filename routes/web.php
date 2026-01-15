@@ -5,10 +5,11 @@ use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::inertia('/', 'Home')->middleware('verified')->name('home');
-Route::inertia('/dashboard', 'Dashboard')->middleware(['auth','verified'])->name('dashboard');
+Route::inertia('/', 'Home')->name('home');
 
 /*
 |--------------------------------------------------------------------------
@@ -42,8 +43,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'handler'])->middleware('signed')->name('verification.verify');
     Route::post('/email/verification-notification', [EmailVerificationController::class, 'resend'])->middleware('throttle:6,1')->name('verification.send');
 
-    Route::inertia('/profile', 'Profile/Edit')->middleware('password.confirm')->name('profile.edit');
-
     Route::get('/confirm-password', [ConfirmPasswordController::class, 'create'])->name('password.confirm');
     Route::post('/confirm-password', [ConfirmPasswordController::class, 'store'])->middleware('throttle:6,1');
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->middleware('verified')->name('dashboard');
+    
+    Route::get('/profile', [ProfileController::class, 'edit'])->middleware('password.confirm')->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'updateInfo'])->name('profile.info');
+    Route::put('/profile', [ProfileController::class, 'updatePassword'])->name('profile.password');
+
 });
