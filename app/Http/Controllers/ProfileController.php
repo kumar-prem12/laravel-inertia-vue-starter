@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
@@ -49,6 +50,21 @@ class ProfileController extends Controller
         return redirect()->route('profile.edit')->with('toast', [
             'type' => 'success',
             'message' => 'Password updated successfully'
+        ]);
+    }
+    public function deleteAccount(Request $request){
+        
+        $request->validate([
+            'password' => ['required', 'current_password'],
+        ]);
+        $user = $request->user();
+        Auth::logout();
+        $user->delete();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('home')->with('toast', [
+            'type' => 'success',
+            'message' => 'Account deleted successfully'
         ]);
     }
 }

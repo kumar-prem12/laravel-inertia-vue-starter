@@ -12,7 +12,7 @@ defineProps({
 </script>
 
 <template>
-    <button class="w-full py-2 rounded-lg font-semibold
+    <button class="w-1/2 py-2 rounded-lg font-semibold
                bg-indigo-600 hover:bg-indigo-700
                text-white transition
                disabled:opacity-60 disabled:cursor-not-allowed" :disabled="loading || disabled">

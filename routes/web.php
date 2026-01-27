@@ -6,10 +6,9 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ListingController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
-Route::inertia('/', 'Home')->name('home');
 
 /*
 |--------------------------------------------------------------------------
@@ -50,5 +49,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->middleware('password.confirm')->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'updateInfo'])->name('profile.info');
     Route::put('/profile', [ProfileController::class, 'updatePassword'])->name('profile.password');
+    Route::delete('/profile', [ProfileController::class, 'deleteAccount'])->name('profile.delete');
 
 });
+Route::get('/', [ListingController::class, 'index'])->name('home');
+Route::resource('listing', ListingController::class)->except('index');
+// Route::inertia('/', 'Home')->name('home');
