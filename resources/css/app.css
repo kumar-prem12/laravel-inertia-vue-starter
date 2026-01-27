@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+.text-link {
+  @apply text-indigo-500 hover:text-indigo-600 underline 
+  font-medium dark:text-indigo-400 dark:hover:text-indigo-500;
+}
+
 .form-label {
   @apply block mb-1 text-sm font-medium
          text-slate-700 dark:text-slate-300;
