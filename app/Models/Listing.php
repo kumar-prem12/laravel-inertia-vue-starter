@@ -22,4 +22,17 @@ class Listing extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function scopeFilter($query, array $filters): void
+    {
+        if ($filters['search'] ?? false) {
+            $query->where(function ($q) use ($filters) {
+                $q->where('title', 'like', '%' . $filters['search'] . '%')
+                  ->orWhere('description', 'like', '%' . $filters['search'] . '%');
+            });
+        }
+        if ($filters['user_id'] ?? false) {
+            $query->where('user_id', request('user_id'));
+        }
+    }
 }

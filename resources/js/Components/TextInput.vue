@@ -10,7 +10,8 @@ defineProps({
     type: String,
     default: 'text'
   },
-  error: String
+  error: String,
+  placeholder: String,
 });
 
 // defineEmits(['update:modelValue'])
@@ -26,6 +27,7 @@ defineProps({
       :type="type"
       v-model="model"
       class="form-input"
+      :placeholder="placeholder",
     />
 
     <small v-if="error" class="form-error" :class="{'ring-red-500!' : error}">
