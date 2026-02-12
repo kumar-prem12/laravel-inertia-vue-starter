@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Listing extends Model
 {
@@ -23,7 +24,7 @@ class Listing extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function scopeFilter($query, array $filters): void
+    public function scopeFilter(Builder $query, array $filters): void
     {
         if ($filters['search'] ?? false) {
             $query->where(function ($q) use ($filters) {
@@ -32,7 +33,11 @@ class Listing extends Model
             });
         }
         if ($filters['user_id'] ?? false) {
-            $query->where('user_id', request('user_id'));
+            $query->where('user_id', $filters['user_id']);
+        }
+
+        if ($filters['tag'] ?? false) {
+            $query->where('tags', 'like', '%' . $filters['tag'] . '%');
         }
     }
 }
