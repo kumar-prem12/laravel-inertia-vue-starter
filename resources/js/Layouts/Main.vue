@@ -64,6 +64,9 @@ const logout = async () => {
                     <NavLink routeName="profile.edit" componentName="Profile/Edit">
                         Profile
                     </NavLink>
+                    <NavLink routeName="listing.create" componentName="Listing/Create">
+                        New Listing
+                    </NavLink>
                     <NavLink routeName="dashboard" componentName="Dashboard">
                         Dashboard
                     </NavLink>
