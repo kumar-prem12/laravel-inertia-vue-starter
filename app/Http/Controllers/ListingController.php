@@ -21,7 +21,7 @@ class ListingController extends Controller
             $query->where('role', '!=', 'suspended');
         })
             ->with('user')
-            ->where('approved', true)
+//            ->where('approved', true)
             ->filter(request(['search', 'user_id', 'tag']))
             ->latest()
             ->paginate(6)
